@@ -1,0 +1,9 @@
+# github.com/badoux/checkmail v0.0.0-20181210160741-9661bd69e9ad
+github.com/badoux/checkmail
+# github.com/jinzhu/gorm v1.9.12
+github.com/jinzhu/gorm
+# github.com/jinzhu/inflection v1.0.0
+github.com/jinzhu/inflection
+# golang.org/x/crypto v0.0.0-20200210222208-86ce3cb69678
+golang.org/x/crypto/bcrypt
+golang.org/x/crypto/blowfish

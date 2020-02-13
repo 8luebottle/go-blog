@@ -1,14 +1,14 @@
-package main
+package tests
 
 import (
-	"fmt"
 	"github.com/8luebottle/go-blog/api/models"
+	"testing"
 )
 
-func main() {
+func TestUserValidate(t *testing.T)  {
 	user := models.User{}
 	if err := user.Validate("aa"); err != nil {
-		fmt.Println(err)
+		t.Log(err)
 	}
-	fmt.Print("asdasd")
+	t.Log("asdasd")
 }
