@@ -1,15 +1,56 @@
-# Binaries for programs and plugins
+# GO
 *.exe
 *.exe~
 *.dll
 *.so
 *.dylib
-
-# Test binary, built with `go test -c`
 *.test
-
-# Output of the go coverage tool, specifically when used with LiteIDE
 *.out
+/hack/.test-cmd-auth
+.gopath/
 
-# Dependency directories (remove the comment below to include it)
-# vendor/
+# DOCKER
+.vagrant*
+bin
+docker/docker
+.*.swp
+a.out
+*.orig
+build_src
+.flymake*
+.idea
+docs/_build
+docs/_static
+docs/_templates
+.dotcloud
+bundles/
+.hg/
+vendor/pkg/
+pyenv
+Vagrantfile
+
+# KUBERNETES
+._*
+.kubeconfig
+.tags*
+.dockerized-kube-version-defs
+/kubernetes/
+kubernetes.tar.gz
+
+# IntelliJ
+*.iml
+
+# VIM
+[._]*.s[a-w][a-z]
+[._]s[a-w][a-z]
+*.un~
+Session.vim
+.netrwhist
+
+# VSCODE
+.vscode
+
+# OTHER
+.git/
+.DS_Store
+.env
