@@ -1,8 +1,10 @@
 package models
 
 import (
+	"bufio"
 	"errors"
 	"html"
+	"log"
 	"strings"
 	"time"
 
@@ -60,7 +62,7 @@ func (u *User) Validate(action string) error {
 		}
 		if u.Password == "" {
 			return errors.New(ePw)
-		}
+		}:bufio.Writer{}
 		if u.Email == "" {
 			return errors.New(eEm)
 		}
@@ -113,5 +115,48 @@ func (u *User) FindAllUsers(db *gorm.DB) (*[]User, error){
 	if err != nil{
 		return &[]User{}, err
 	}
-	return &usres, err
+	return &users, err
+}
+
+func (u *User) FindUserByID(db *gorm.DB, uid uint32) (*User, error) {
+	var err error
+	err = db.Debug().Model(User{}).Where("id = ?", uid).Take(&u).Error
+	if err != nil {
+		return &User{}, err
+	}
+	if gorm.IsRecordNotFoundError(err){
+		return &User{}, errors.New("User Not Found")
+	}
+	return u, err
+}
+
+func (u *User) UpdateAUser(db *gorm.DB, uid uint32) (*Uesr, error){
+	err := u.BeforeSave()
+	if err != nil{
+		log.Fatal(err)
+	}
+	db =db.Debug().Model(&User{}).Where("id = ?", uid).Take(&User{}).UpdateColumns(
+		map[string]interface{}{
+			"password" : u.Password,
+			"nickname" : u.Nickname,
+			"email" : u.Email,
+			"update_at" : time.Now(),
+		},
+	)
+	if db.Error != nil {
+	    return &User{}, db.Error
+	}
+	err = db.Debug().Model(&User{}).Where("id = ?", uid).Take(&u).Error
+	if err != nil {
+		return &User{}, err
+	}
+	return u, nil
+}
+
+func (u *User) DeleteAUser(db *gorm.DB, uid uint32) (int64, error){
+	db = db.Debug().Model(&User{}).Where("id = ?", uid).Take(&User{}).Delete(&User{})
+	if db.Error != nil{
+		return 0, db.Error
+	}
+	return db.RowsAffected, nil
 }
