@@ -2,15 +2,29 @@
 > Learn By Doing : Go Blog  
 
 #### RESTful API with Go  
-<img width="500" alt="go-blog" src="https://user-images.githubusercontent.com/48475824/74310185-e6803980-4daf-11ea-97f1-96a053d9dc5f.png">
+<img width="300" alt="go-blog" src="https://user-images.githubusercontent.com/48475824/74310185-e6803980-4daf-11ea-97f1-96a053d9dc5f.png">
+
+### Table of Contents
+* [Tech Stack](#tech-stack)
+* [Run go-blog](#run-go-blog)
+* [Directory Structure](#directory-structure)
 
 ## Tech Stack
 Go, JWT, IntelliJ, Bcrypt, GORM, Docker, MySQL, Kubernetes, Gorilla Mux
 
-![tech stack](https://user-images.githubusercontent.com/48475824/74404146-fc9fff80-4e6c-11ea-90f9-9fce0c92a77d.png)
+<img width="536" alt="Tech Stack" src="https://user-images.githubusercontent.com/48475824/74404146-fc9fff80-4e6c-11ea-90f9-9fce0c92a77d.png">
+
+
+## Run go-blog
+```bash
+go run main.go
+```
+Successfully Connected to the MySQL
+![go-blog mysql](https://user-images.githubusercontent.com/48475824/74588199-bcdc4200-503d-11ea-9ccf-3e59df37deb5.png)
+
 
 ## Directory Structure
-```
+```bash
 .
 ├── README.md
 ├── api
