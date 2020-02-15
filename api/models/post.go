@@ -41,6 +41,21 @@ func (p *Post) Validate() error {
 	return nil
 }
 
+func (p *Post) SavePost(db *gorm.DB) (*Post, error) {
+	var err error
+	err = db.Debug().Model(&Post{}).Create(&p).Error
+	if err != nil {
+		return &Post{}, err
+	}
+	if p.ID != 0 {
+		err = db.Debug().Model(&User{}).Where("id = ?", p.AuthorID).Take(&p.Author).Error
+		if err != nil {
+			return &Post{}, err
+		}
+	}
+	return p, nil
+}
+
 func (p *Post) FindAllPosts(db *gorm.DB) (*[]Post, error) {
 	var err error
 	posts := []Post{}
