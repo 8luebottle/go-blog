@@ -65,7 +65,7 @@ func (p *Post) FindAllPosts(db *gorm.DB) (*[]Post, error) {
 
 func (p *Post) UpdateAPost(db *gorm.DB) (*Post, error) {
 	var err error
-	err := db.
+	err = db.
 		Debug().
 		Model(&Post{}).
 		Where("id = ?", p.ID).
