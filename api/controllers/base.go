@@ -7,6 +7,7 @@ import (
 
 	"github.com/gorilla/mux"
 	"github.com/jinzhu/gorm"
+	_ "github.com/jinzhu/gorm/dialects/mysql"
 
 	"github.com/8luebottle/go-blog/api/models"
 )
@@ -21,9 +22,8 @@ func (server *Server) Initialize(Dbdriver, DbUser, DbPassword, DbPort, DbHost, D
 
 	if Dbdriver == "mysql" {
 		DBURL := fmt.Sprintf(
-			"%s:%s@tcp(%s:%s)/%s?charset=ut8&parseTime=True&loc=Local",
-			DbUser, DbPassword, DbHost, DbPort, DbName,
-		)
+			"%s:%s@tcp(%s:%s)/%s?charset=utf8&parseTime=True&loc=Local",
+			DbUser, DbPassword, DbHost, DbPort, DbName)
 		server.DB, err = gorm.Open(Dbdriver, DBURL)
 		if err != nil {
 			fmt.Printf("cannot connect to %s database", Dbdriver)
