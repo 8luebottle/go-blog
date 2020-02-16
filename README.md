@@ -8,12 +8,16 @@
 * [Tech Stack](#tech-stack)
 * [Run go-blog](#run-go-blog)
 * [DB](#db)
+* [Endpoint](#endpoint)
 * [Directory Structure](#directory-structure)
+
 
 ## Tech Stack
 Go, JWT, IntelliJ, Bcrypt, GORM, Docker, MySQL, Kubernetes, Gorilla Mux
 
 <img width="536" alt="Tech Stack" src="https://user-images.githubusercontent.com/48475824/74404146-fc9fff80-4e6c-11ea-90f9-9fce0c92a77d.png">
+
+<small>[Return to the TOC](#table-of-contents)</small>
 
 
 ## Run go-blog
@@ -23,9 +27,11 @@ go run main.go
 Successfully Connected to the MySQL
 <img width="847" alt="go-blog mysql" src="https://user-images.githubusercontent.com/48475824/74598295-6eb55600-50b2-11ea-8322-534c55af5d5f.png">
 
+<small>[Return to the TOC](#table-of-contents)</small>
+
 
 ## DB
-Tables
+#### Tables
 ```mysql
 +------------------+
 | Tables_in_goblog |
@@ -34,7 +40,7 @@ Tables
 | users            |
 +------------------+
 ```
-Posts
+#### Posts
 ```mysql
 +------------+-----------------+------+-----+-------------------+-------------------+
 | Field      | Type            | Null | Key | Default           | Extra             |
@@ -54,7 +60,7 @@ Posts
 |  2 | Second Post | Level Up Coding.             |         2 | 2020-02-16 11:39:58 | 2020-02-16 11:39:58 |
 +----+-------------+------------------------------+-----------+---------------------+---------------------+
 ```
-users
+#### users
 ```mysql
 +------------+--------------+------+-----+-------------------+-------------------+
 | Field      | Type         | Null | Key | Default           | Extra             |
@@ -74,6 +80,25 @@ users
 |  2 | Thom Browne | thombrowne@gmail.com | $PWPWPWPWPWPWPWPWPWPWPWPWPWPWPWPWPWPWPWPWPWPWPWPWPWPWPWPWPWP | 2020-02-16 11:39:58 | 2020-02-16 11:39:58 |
 +----+-------------+----------------------+--------------------------------------------------------------+---------------------+------------------
 ```
+
+<small>[Return to the TOC](#table-of-contents)</small>
+
+
+## Endpoint
+#### Testing Endpoint
+**[posts]**  
+<img width="700" alt="endpoint posts" src="https://user-images.githubusercontent.com/48475824/74598569-f604c880-50b6-11ea-94c5-79d9ce67f5d9.png">
+
+**[users]**   
+<img width="700" alt="endpoint users" src="https://user-images.githubusercontent.com/48475824/74598723-e89d0d80-50b9-11ea-9673-935e437d5620.png">
+
+**[login]**  
+<small>Input Wrong Email Address</small>  
+<img width="700" alt="endpoint login" src="https://user-images.githubusercontent.com/48475824/74598772-f56e3100-50ba-11ea-9524-528265e25acc.png">
+<small>Input Correct Email Address</small>   
+<img width="700" alt="endpoint login success" src="https://user-images.githubusercontent.com/48475824/74598795-86dda300-50bb-11ea-8df5-82b023b03737.png">
+
+<small>[Return to the TOC](#table-of-contents)</small>
 
 ## Directory Structure
 ```bash
@@ -172,3 +197,4 @@ users
     │               └── const.go
     └── modules.txt
 ```
+<small>[Return to the TOC](#table-of-contents)</small>
