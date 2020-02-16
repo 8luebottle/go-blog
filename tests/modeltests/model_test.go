@@ -82,12 +82,12 @@ func seedUsers() error {
 	users := []models.User{
 		models.User{
 			Nickname: "Henry",
-			Email : "henrylau@gmial.com",
+			Email:    "henrylau@gmial.com",
 			Password: "henry123",
-		}
+		},
 		models.User{
 			Nickname: "Trump",
-			Email : "donaldtrump@gmail.com",
+			Email:    "donaldtrump@gmail.com",
 			Password: "donald123",
 		},
 	}
@@ -121,7 +121,7 @@ func seedOneUserAndOnePost() (models.Post, error) {
 	}
 	user := models.User{
 		Nickname: "Elon",
-		Email: "elonmusk@gmail.com",
+		Email:    "elonmusk@gmail.com",
 		Password: "elon123",
 	}
 	err = server.DB.Model(&models.User{}).Create(&user).Error
@@ -129,8 +129,8 @@ func seedOneUserAndOnePost() (models.Post, error) {
 		return models.Post{}, err
 	}
 	post := models.Post{
-		Title: "Space X",
-		Content: "It's time for another flying Falcon 9 to deliver a fifth batch of Starlink satellites to orbit for SpaceX. On Sunday morning, SpaceX's workhorse rocket is set to add 60 more satellites to the burgeoning constellation.",
+		Title:    "Space X",
+		Content:  "It's time for another flying Falcon 9 to deliver a fifth batch of Starlink satellites to orbit for SpaceX. On Sunday morning, SpaceX's workhorse rocket is set to add 60 more satellites to the burgeoning constellation.",
 		AuthorID: user.ID,
 	}
 	err = server.DB.Model(&models.Post{}).Create(&post).Error
@@ -145,26 +145,26 @@ func seedUsersAndPosts() ([]models.User, []models.Post, error) {
 	if err != nil {
 		return []models.User{}, []models.Post{}, err
 	}
-	var users = []models.User {
+	var users = []models.User{
 		models.User{
-			Nickname : "Elon",
-			Email : "elonmusk@gmail.com",
+			Nickname: "Elon",
+			Email:    "elonmusk@gmail.com",
 			Password: "elon123",
 		},
 		models.User{
 			Nickname: "Adult Tiger",
-			Email: "tiger@gmail.com",
+			Email:    "tiger@gmail.com",
 			Password: "tiger123",
 		},
 	}
 	var posts = []models.Post{
 		models.Post{
-			Title: "How to watch Falcon 9 deliver 60 satellites to space",
+			Title:   "How to watch Falcon 9 deliver 60 satellites to space",
 			Content: "SpaceX attempts to go five for five with its Starlink satellite megaconstellation.",
 		},
 		models.Post{
-				Title: "You Can Now Lease A Tesla In Connecticut",
-				Content: "The new leasing option was a cause for celebration among Tesla officials, EV advocates, and state officials despite the fact that state legislators haven’t changed the state’s law requiring third-party dealerships for consumer sales. Dealerships have argued that this would be unfair and that franchising helps drive competition and sales.",
+			Title:   "You Can Now Lease A Tesla In Connecticut",
+			Content: "The new leasing option was a cause for celebration among Tesla officials, EV advocates, and state officials despite the fact that state legislators haven’t changed the state’s law requiring third-party dealerships for consumer sales. Dealerships have argued that this would be unfair and that franchising helps drive competition and sales.",
 		},
 	}
 
