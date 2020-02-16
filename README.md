@@ -9,6 +9,7 @@
 * [Run go-blog](#run-go-blog)
 * [DB](#db)
 * [Endpoint](#endpoint)
+* [Test Cases](#test-cases)
 * [Directory Structure](#directory-structure)
 
 
@@ -99,6 +100,39 @@ Successfully Connected to the MySQL
 <img width="700" alt="endpoint login success" src="https://user-images.githubusercontent.com/48475824/74598795-86dda300-50bb-11ea-8df5-82b023b03737.png">
 
 <small>[Return to the TOC](#table-of-contents)</small>
+
+
+## Test Cases
+#### Run Tests
+```bash
+go test --run TEstFindAllUsers
+```
+```bash
+PASS
+ok      github.com/8luebottle/go-blog/tests     0.635s
+
+```
+```bash
+go test -v --run TestUpdateAPost  
+```
+```bash
+PASS
+ok      github.com/8luebottle/go-blog/tests     0.124s
+```
+```bash
+go test -v
+```
+```bash
+=== RUN   TestUserValidate
+--- PASS: TestUserValidate (0.00s)
+    user_test.go:11: please input your nickname
+    user_test.go:13: asdasd
+PASS
+ok      github.com/8luebottle/go-blog/tests     0.396s
+```
+
+<small>[Return to the TOC](#table-of-contents)</small>
+
 
 ## Directory Structure
 ```bash
