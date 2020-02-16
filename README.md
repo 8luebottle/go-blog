@@ -166,6 +166,13 @@ ok      github.com/8luebottle/go-blog/tests     0.396s
 ├── go.sum
 ├── main.go
 ├── tests
+│   ├── controllertests
+│   │   ├── controller_test.go
+│   │   ├── login_controller_test.go
+│   │   └── post_controller_test.go
+│   ├── modeltests
+│   │   ├── model_test.go
+│   │   └── user_model_test.go
 │   └── user_test.go
 └── vendor
     ├── github.com
