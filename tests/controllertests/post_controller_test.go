@@ -7,7 +7,12 @@ import (
 	"log"
 	"net/http"
 	"net/http/httptest"
+	"strconv"
 	"testing"
+
+	"github.com/gorilla/mux"
+
+	"github.com/8luebottle/go-blog/api/models"
 
 	"gopkg.in/go-playground/assert.v1"
 )
@@ -74,4 +79,84 @@ func TestCreatePost(t *testing.T) {
 	}
 }
 
-// func TestGetPosts
+func TestGetPosts(t *testing.T) {
+	err := refreshUserAndPostTable()
+	if err != nil {
+		log.Fatal(err)
+	}
+	_, _, err = seedUsersAndPosts()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	req, err := http.NewRequest("GET", "/posts", nil)
+	if err != nil {
+		t.Errorf("this is the error: %v\n", err)
+	}
+	rr := httptest.NewRecorder()
+	handler := http.HandlerFunc(server.GetPosts)
+	handler.ServeHTTP(rr, req)
+
+	var posts []models.Post
+	err = json.Unmarshal([]byte(rr.Body.String()), &posts)
+
+	assert.Equal(t, rr.Code, http.StatusOK)
+	assert.Equal(t, len(posts), 2)
+}
+
+func TestGetPostByID(t *testing.T) {
+	err := refreshUserAndPostTable()
+	if err != nil {
+		log.Fatal(err)
+	}
+	post, err := seedOneUserAndOnePost()
+	if err != nil {
+		log.Fatal(err)
+	}
+	postSample := []struct {
+		id           string
+		statusCode   int
+		title        string
+		content      string
+		author_id    uint32
+		errorMessage string
+	}{
+		{
+			id:         strconv.Itoa(int(post.ID)),
+			statusCode: 200,
+			title:      post.Title,
+			content:    post.Content,
+			author_id:  post.AuthorID,
+		},
+		{
+			id:         "anonymous",
+			statusCode: 400,
+		},
+	}
+	for _, v := range postSample {
+		req, err := http.NewRequest("GET", "/posts", nil)
+		if err != nil {
+			t.Errorf("this is the error: %v\n", err)
+		}
+		req = mux.SetURLVars(req, map[string]string{"id": v.id})
+
+		rr := httptest.NewRecorder()
+		handler := http.HandlerFunc(server.GetPost)
+		handler.ServeHTTP(rr, req)
+
+		responseMap := make(map[string]interface{})
+		err = json.Unmarshal([]byte(rr.Body.String()), &responseMap)
+		if err != nil {
+			log.Fatalf("cannot convert to json: %v", err)
+		}
+		assert.Equal(t, rr.Code, v.statusCode)
+
+		if v.statusCode == 200 {
+			assert.Equal(t, post.Title, responseMap["title"])
+			assert.Equal(t, post.Content, responseMap["content"])
+			assert.Equal(t, float64(post.AuthorID), responseMap["author_id"])
+		}
+	}
+}
+
+// func TestUpdatePost(t *testing.T)
