@@ -2,11 +2,12 @@
 > Learn By Doing : Go Blog  
 
 #### RESTful API with Go  
-<img width="300" alt="go-blog" src="https://user-images.githubusercontent.com/48475824/74310185-e6803980-4daf-11ea-97f1-96a053d9dc5f.png">
+<img width="400" alt="go-blog" src="https://user-images.githubusercontent.com/48475824/74310185-e6803980-4daf-11ea-97f1-96a053d9dc5f.png">
 
 ### Table of Contents
 * [Tech Stack](#tech-stack)
 * [Run go-blog](#run-go-blog)
+* [DB](#db)
 * [Directory Structure](#directory-structure)
 
 ## Tech Stack
@@ -21,6 +22,58 @@ go run main.go
 ```
 Successfully Connected to the MySQL
 <img width="847" alt="go-blog mysql" src="https://user-images.githubusercontent.com/48475824/74598295-6eb55600-50b2-11ea-8322-534c55af5d5f.png">
+
+
+## DB
+Tables
+```mysql
++------------------+
+| Tables_in_goblog |
++------------------+
+| posts            |
+| users            |
++------------------+
+```
+Posts
+```mysql
++------------+-----------------+------+-----+-------------------+-------------------+
+| Field      | Type            | Null | Key | Default           | Extra             |
++------------+-----------------+------+-----+-------------------+-------------------+
+| id         | bigint unsigned | NO   | PRI | NULL              | auto_increment    |
+| title      | varchar(255)    | NO   | UNI | NULL              |                   |
+| content    | varchar(500)    | NO   |     | NULL              |                   |
+| author_id  | int unsigned    | NO   |     | NULL              |                   |
+| created_at | datetime        | YES  |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED |
+| updated_at | datetime        | YES  |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED |
++------------+-----------------+------+-----+-------------------+-------------------+
+
++----+-------------+------------------------------+-----------+---------------------+---------------------+
+| id | title       | content                      | author_id | created_at          | updated_at          |
++----+-------------+------------------------------+-----------+---------------------+---------------------+
+|  1 | First Post  | Go Programming. Daily Coding |         1 | 2020-02-16 11:39:58 | 2020-02-16 11:39:58 |
+|  2 | Second Post | Level Up Coding.             |         2 | 2020-02-16 11:39:58 | 2020-02-16 11:39:58 |
++----+-------------+------------------------------+-----------+---------------------+---------------------+
+```
+users
+```mysql
++------------+--------------+------+-----+-------------------+-------------------+
+| Field      | Type         | Null | Key | Default           | Extra             |
++------------+--------------+------+-----+-------------------+-------------------+
+| id         | int unsigned | NO   | PRI | NULL              | auto_increment    |
+| nickname   | varchar(255) | NO   | UNI | NULL              |                   |
+| email      | varchar(150) | NO   |     | NULL              |                   |
+| password   | varchar(100) | NO   |     | NULL              |                   |
+| created_at | datetime     | YES  |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED |
+| updated_at | datetime     | YES  |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED |
++------------+--------------+------+-----+-------------------+-------------------+
+
++----+-------------+----------------------+--------------------------------------------------------------+---------------------+---------------------+
+| id | nickname    | email                | password                                                     | created_at          | updated_at          |
++----+-------------+----------------------+--------------------------------------------------------------+---------------------+---------------------+
+|  1 | Baby Tiger  | babytiger@gmal.com   | $PWPWPWPWPWPWPWPWPWPWPWPWPWPWPWPWPWPWPWPWPWPWPWPWPWPWPWPWPWP | 2020-02-16 11:39:58 | 2020-02-16 11:39:58 |
+|  2 | Thom Browne | thombrowne@gmail.com | $PWPWPWPWPWPWPWPWPWPWPWPWPWPWPWPWPWPWPWPWPWPWPWPWPWPWPWPWPWP | 2020-02-16 11:39:58 | 2020-02-16 11:39:58 |
++----+-------------+----------------------+--------------------------------------------------------------+---------------------+------------------
+```
 
 ## Directory Structure
 ```bash
