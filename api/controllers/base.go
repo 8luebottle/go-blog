@@ -29,7 +29,7 @@ func (server *Server) Initialize(Dbdriver, DbUser, DbPassword, DbPort, DbHost, D
 			fmt.Printf("cannot connect to %s database", Dbdriver)
 			log.Fatal("this is the error:", err)
 		} else {
-			fmt.Printf("we are connected to the %s database", Dbdriver)
+			fmt.Printf("we are connected to the %s database\n", Dbdriver)
 		}
 	}
 

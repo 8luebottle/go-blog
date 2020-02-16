@@ -20,8 +20,7 @@ Go, JWT, IntelliJ, Bcrypt, GORM, Docker, MySQL, Kubernetes, Gorilla Mux
 go run main.go
 ```
 Successfully Connected to the MySQL
-![go-blog mysql](https://user-images.githubusercontent.com/48475824/74588199-bcdc4200-503d-11ea-9ccf-3e59df37deb5.png)
-
+<img width="847" alt="go-blog mysql" src="https://user-images.githubusercontent.com/48475824/74598295-6eb55600-50b2-11ea-8322-534c55af5d5f.png">
 
 ## Directory Structure
 ```bash
