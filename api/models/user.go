@@ -16,8 +16,8 @@ import (
 
 type User struct {
 	ID        uint32    `gorm:"primary_key;auto_increment" json:"id"`
-	Nickname  string    `gorm:"size:255;not null; unique" json:"nickname"`
-	Email     string    `gorm:"size:150;not null;" json:"email"`
+	Nickname  string    `gorm:"size:255;not null;unique" json:"nickname"`
+	Email     string    `gorm:"size:150;not null;unique" json:"email"`
 	Password  string    `gorm:"size:100;not null;" json:"password"`
 	CreatedAt time.Time `gorm:"default:CURRENT_TIMESTAMP" json:"created_at"`
 	UpdatedAt time.Time `gorm:"default:CURRENT_TIMESTAMP" json:"updated_at"`
@@ -68,7 +68,6 @@ func (u *User) Validate(action string) error {
 		if err := checkmail.ValidateFormat(u.Email); err != nil {
 			return errors.New(iEm)
 		}
-
 		return nil
 	case "login":
 		if u.Password == "" {

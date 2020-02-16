@@ -10,13 +10,18 @@ import (
 var users = []models.User{
 	models.User{
 		Nickname: "Baby Tiger",
-		Email:    "babytiger@gmal.com",
+		Email:    "babytiger@gmail.com",
 		Password: "baby123",
 	},
 	models.User{
 		Nickname: "Thom Browne",
 		Email:    "thombrowne@gmail.com",
 		Password: "thom123",
+	},
+	{
+		Nickname: "admin",
+		Email:    "admin@goblog.com",
+		Password: "admin123",
 	},
 }
 
@@ -28,6 +33,10 @@ var posts = []models.Post{
 	models.Post{
 		Title:   "Second Post",
 		Content: "Level Up Coding.",
+	},
+	{
+		Title:   "TESTING",
+		Content: "Blog Testing",
 	},
 }
 
