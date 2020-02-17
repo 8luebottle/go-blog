@@ -159,4 +159,102 @@ func TestGetPostByID(t *testing.T) {
 	}
 }
 
-// func TestUpdatePost(t *testing.T)
+func TestUpdatePost(t *testing.T) {
+	var PostUserEmail, PostUserPassword string
+	var AuthPostAuthorID uint32
+	var AuthPostID uint64
+
+	err := refreshUserAndPostTable()
+	if err != nil {
+		log.Fatal(err)
+	}
+	users, posts, err := seedUsersAndPosts()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// Get the first user
+	for _, user := range users {
+		if user.ID == 2 {
+			continue
+		}
+		PostUserEmail = user.Email
+		PostUserPassword = "password"
+	}
+	token, err := server.SignIn(PostUserEmail, PostUserPassword)
+	if err != nil {
+		log.Fatalf("cannot login: %v\n", err)
+	}
+	tokenString := fmt.Sprintf("Bearer %v", token)
+
+	for _, post := range posts {
+		if post.ID == 2 {
+			continue
+		}
+		AuthPostID = post.ID
+		AuthPostAuthorID = post.AuthorID
+	}
+
+	samples := []struct {
+		id           string
+		updateJSON   string
+		statusCode   int
+		title        string
+		content      string
+		author_id    uint32
+		tokenGiven   string
+		errorMessage string
+	}{
+		{
+			id:           strconv.Itoa(int(AuthPostID)),
+			updateJSON:   `{"title": "CORONA19", "contet": "More than 80 clinical trials launch to test coronavirus treatments", "author_id":2}`,
+			statusCode:   200,
+			title:        "CORONA19",
+			content:      "More than 80 clinical trials launch to test coronavirus treatments",
+			author_id:    AuthPostAuthorID,
+			tokenGiven:   tokenString,
+			errorMessage: "",
+		},
+		{
+			id:           strconv.Itoa(int(AuthPostID)),
+			updateJSON:   `{"title":"UPDATED TITLE", "content": "UPDATED CONTENT", "author_id":1}`,
+			tokenGiven:   "Wrong Token",
+			statusCode:   401,
+			errorMessage: "Unauthorized",
+		},
+		{
+			id:         "unknown",
+			statusCode: 400,
+		},
+	}
+	for _, v := range samples {
+		req, err := http.NewRequest("POST", "/posts", bytes.NewBufferString(v.updateJSON))
+		if err != nil {
+			t.Errorf("this is the error: %v\n", err)
+		}
+		req = mux.SetURLVars(req, map[string]string{"id": v.id})
+		rr := httptest.NewRecorder()
+		handler := http.HandlerFunc(server.UpdatePost)
+
+		req.Header.Set("Authorization", v.tokenGiven)
+
+		handler.ServeHTTP(rr, req)
+
+		responseMap := make(map[string]interface{})
+		err = json.Unmarshal([]byte(rr.Body.String()), &responseMap)
+		if err != nil {
+			t.Errorf("cannot convert to json: %v", err)
+		}
+		assert.Equal(t, rr.Code, v.statusCode)
+		if v.statusCode == 200 {
+			assert.Equal(t, responseMap["title"], v.title)
+			assert.Equal(t, responseMap["content"], v.content)
+			assert.Equal(t, responseMap["author_id"], float64(v.author_id))
+		}
+		if v.statusCode == 401 || v.statusCode == 422 || v.statusCode == 500 && v.errorMessage != "" {
+			assert.Equal(t, responseMap["error"], v.errorMessage)
+		}
+	}
+}
+
+// func TestDeletePost
