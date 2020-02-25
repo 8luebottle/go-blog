@@ -53,8 +53,32 @@ func TestCreatePost(t *testing.T) {
 		{
 			inputJSON:    `{"title": "Feb 18, 2020 05:17:20AM", "content:":"Early Bird", "authorId": 2}`,
 			statusCode:   401,
-			tokenGiven:   tokenString,
+			tokenGiven:   "",
 			errorMessage: "Unauthorized",
+		},
+		{
+			inputJSON:    `{"title": "ConfigMaps and Secrets on a Gorush server example", "content:":"Blah Blah.", "author_id": 1}`,
+			statusCode:   500,
+			tokenGiven:   tokenString,
+			errorMessage: "Title Already Taken",
+		},
+		{
+			inputJSON:    `{"title": "Daily Commit", "content":"Consistency", "author_id": 1}`,
+			statusCode:   401,
+			tokenGiven:   "Incorrect Token",
+			errorMessage: "Unauthorized",
+		},
+		{
+			inputJSON:    `{"title": "", "content":"Empty Title", "author_id": 1}`,
+			statusCode:   422,
+			tokenGiven:   tokenString,
+			errorMessage: "Title Require",
+		},
+		{
+			inputJSON:    `{"title":"The Title", "content": "The Content"}`,
+			statusCode:   422,
+			tokenGiven:   tokenString,
+			errorMessage: "Author Require",
 		},
 	}
 	for _, v := range samples {

@@ -7,6 +7,6 @@ import (
 )
 
 // Welcome API User
-func (server *Server) Home(w http.ResponseWriter, r *http.Request) {
+func (s *Server) Home(w http.ResponseWriter, r *http.Request) {
 	responses.JSON(w, http.StatusOK, "welcome to this Awesome API")
 }

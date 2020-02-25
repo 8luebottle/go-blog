@@ -12,8 +12,6 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-//fmt.Println("WIP")
-
 type User struct {
 	ID        uint32    `gorm:"primary_key;auto_increment" json:"id"`
 	Nickname  string    `gorm:"size:255;not null;unique" json:"nickname"`
