@@ -1,24 +1,20 @@
 package api
 
 import (
-	"fmt"
 	"log"
 	"os"
 
+	"github.com/joho/godotenv"
+
 	"github.com/8luebottle/go-blog/api/controllers"
 	"github.com/8luebottle/go-blog/api/seed"
-	"github.com/joho/godotenv"
 )
 
 var server = controllers.Server{}
 
 func Run() {
-	var err error
-	err = godotenv.Load()
-	if err != nil {
+	if err := godotenv.Load(); err != nil {
 		log.Fatalf("error getting env, not comming through %v", err)
-	} else {
-		fmt.Println("we are getting the env values")
 	}
 
 	server.Initialize(

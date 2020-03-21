@@ -17,28 +17,27 @@ type Server struct {
 	Router *mux.Router
 }
 
-func (server *Server) Initialize(Dbdriver, DbUser, DbPassword, DbPort, DbHost, DbName string) {
+func (s *Server) Initialize(DbDriver, DbUser, DbPassword, DbPort, DbHost, DbName string) {
 	var err error
 
-	if Dbdriver == "mysql" {
+	if DbDriver == "mysql" {
 		DBURL := fmt.Sprintf(
 			"%s:%s@tcp(%s:%s)/%s?charset=utf8&parseTime=True&loc=Local",
 			DbUser, DbPassword, DbHost, DbPort, DbName)
-		server.DB, err = gorm.Open(Dbdriver, DBURL)
+		s.DB, err = gorm.Open(DbDriver, DBURL)
 		if err != nil {
-			fmt.Printf("cannot connect to %s database", Dbdriver)
+			fmt.Printf("cannot connect to %s database", DbDriver)
 			log.Fatal("this is the error:", err)
 		} else {
-			fmt.Printf("we are connected to the %s database\n", Dbdriver)
+			fmt.Printf("we are connected to the %s database\n", DbDriver)
 		}
 	}
 
-	server.DB.Debug().AutoMigrate(&models.User{}, &models.Post{})
-	server.Router = mux.NewRouter()
-	server.initializeRoutes()
+	s.DB.AutoMigrate(&models.User{}, &models.Post{})
+	s.Router = mux.NewRouter()
+	s.initializeRoutes()
 }
 
-func (server *Server) Run(addr string) {
-	fmt.Println("listening to port 8080")
-	log.Fatal(http.ListenAndServe(addr, server.Router))
+func (s *Server) Run(addr string) {
+	log.Fatal(http.ListenAndServe(addr, s.Router))
 }
